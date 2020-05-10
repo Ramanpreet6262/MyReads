@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Homepage from './Containers/Homepage/Homepage';
 import * as BooksApi from './BooksAPI';
+import Loader from './Components/Loader/Loader';
 import './App.css';
 
 const App = () => {
@@ -43,7 +44,7 @@ const App = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   } else {
     return (
       <div className='app'>
