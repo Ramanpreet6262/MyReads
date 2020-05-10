@@ -190,3 +190,17 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+#nprogress .bar {
+  background: rgb(250, 217, 27);
+  height: 3px;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px rgb(250, 217, 27), 0 0 5px rgb(250, 217, 27);
+}
+
+#nprogress .spinner-icon {
+  border-top-color: rgb(250, 217, 27);
+  border-left-color: rgb(250, 217, 27);
+}
