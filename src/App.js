@@ -3,13 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import NProgress from 'nprogress';
 import Homepage from './Containers/Homepage/Homepage';
 import Search from './Containers/SearchContainer/Search';
+import Error404 from './Components/Error404/Error404';
 import * as BooksApi from './BooksAPI';
 import Loader from './Components/Loader/Loader';
 import 'nprogress/nprogress.css';
 import './App.css';
 
 const App = () => {
-  const [allBooks, setAllBooks] = useState();
+  const [allBooks, setAllBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -116,7 +117,7 @@ const App = () => {
               />
             )}
           />
-          {/* <Route path='*' component={} /> */}
+          <Route path='*' component={Error404} />
         </Switch>
       </div>
     );
