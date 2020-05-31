@@ -204,3 +204,17 @@ body,
   border-top-color: rgb(250, 217, 27);
   border-left-color: rgb(250, 217, 27);
 }
+
+.notFound {
+  text-align: center;
+  margin-top: 250px;
+  color: red;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.links {
+  cursor: pointer;
+  color: #1b3fa1;
+  text-decoration: none;
+}

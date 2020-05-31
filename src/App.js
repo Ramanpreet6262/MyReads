@@ -12,19 +12,18 @@ const App = () => {
   const [allBooks, setAllBooks] = useState();
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchedBooks, setSearchedBooks] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     NProgress.start();
     BooksApi.getAll()
       .then(res => {
-        // console.log(res);
         setAllBooks(res);
         setLoading(false);
         NProgress.done();
       })
       .catch(err => {
-        // console.log(err);
         alert(`An error occurred while fetching books. Please retry`);
         setLoading(false);
         NProgress.done();
@@ -34,12 +33,13 @@ const App = () => {
   const handleUpdate = (event, newBook) => {
     const shelf = event.target.value;
     NProgress.start();
-    const updatedAllBooks = allBooks.map(book => {
-      if (book.id === newBook.id) {
-        book.shelf = shelf;
-      }
-      return book;
-    });
+    const newUpdatedBook = newBook;
+    newUpdatedBook.shelf = shelf;
+    const updatedAllBooks = allBooks
+      .filter(book => {
+        return book.id !== newBook.id;
+      })
+      .concat(newUpdatedBook);
     setAllBooks(updatedAllBooks);
     BooksApi.update(newBook, shelf)
       .then(res => {
@@ -47,10 +47,47 @@ const App = () => {
         alert(`${newBook.title} has been added to ${shelf} successfully!!`);
       })
       .catch(err => {
-        // console.log(err);
         NProgress.done();
         alert(`An error occured while updating the shelf of ${newBook.title}`);
       });
+  };
+
+  const handleSearch = event => {
+    let query = event.target.value;
+    if (query === '' && searchQuery) {
+      setSearchedBooks([]);
+      setSearchQuery('');
+    } else if (query === '') {
+      setSearchQuery('');
+      setSearchedBooks([]);
+    } else {
+      setSearchQuery(query);
+      BooksApi.search(query, 20)
+        .then(res => {
+          const filteredBooks = res.filter(book => book.imageLinks);
+          let updatedResp = filteredBooks.map(book => {
+            let sameBook = allBooks.find(item => item.id === book.id);
+            if (sameBook) {
+              book.shelf = sameBook.shelf;
+            }
+            return book;
+          });
+          if (searchQuery !== '') {
+            setSearchedBooks(updatedResp);
+          }
+        })
+        .catch(err => {
+          console.log(
+            `Sorry!, an error occured while searching. Please retry!!`
+          );
+          setSearchedBooks([]);
+        });
+    }
+  };
+
+  const clearSearchedBooks = () => {
+    setSearchedBooks([]);
+    setSearchQuery('');
   };
 
   if (loading) {
@@ -70,7 +107,13 @@ const App = () => {
             path='/search'
             exact
             render={() => (
-              <Search allBooks={allBooks} searchQuery={searchQuery} />
+              <Search
+                searchQuery={searchQuery}
+                searchedBooks={searchedBooks}
+                handleUpdate={handleUpdate}
+                handleSearch={handleSearch}
+                clear={clearSearchedBooks}
+              />
             )}
           />
           {/* <Route path='*' component={} /> */}
