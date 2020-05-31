@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Book from '../../Components/Book/Book';
 
 const Search = ({
@@ -60,6 +61,14 @@ const Search = ({
       </div>
     </>
   );
+};
+
+Search.propTypes = {
+  searchQuery: PropTypes.string,
+  searchedBooks: PropTypes.array,
+  handleUpdate: PropTypes.func,
+  handleSearch: PropTypes.func,
+  clear: PropTypes.func
 };
 
 export default Search;

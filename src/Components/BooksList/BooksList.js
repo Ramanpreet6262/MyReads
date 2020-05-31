@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Book from '../Book/Book';
 
 const BooksList = ({ books, handleUpdate }) => {
@@ -15,6 +16,11 @@ const BooksList = ({ books, handleUpdate }) => {
       </ol>
     </div>
   );
+};
+
+BooksList.propTypes = {
+  books: PropTypes.array,
+  handleUpdate: PropTypes.func
 };
 
 export default BooksList;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import BooksList from '../../Components/BooksList/BooksList';
 
 const Homepage = ({ allBooks, handleUpdate }) => {
@@ -44,6 +45,11 @@ const Homepage = ({ allBooks, handleUpdate }) => {
       </div>
     </>
   );
+};
+
+Homepage.propTypes = {
+  allBooks: PropTypes.array,
+  handleUpdate: PropTypes.func
 };
 
 export default Homepage;

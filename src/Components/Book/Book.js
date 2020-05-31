@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Book = ({ bookData, handleChange }) => {
   return (
@@ -9,7 +10,8 @@ const Book = ({ bookData, handleChange }) => {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${bookData.imageLinks.thumbnail})`
+            backgroundImage: `url(${bookData.imageLinks &&
+              bookData.imageLinks.thumbnail})`
           }}
         ></div>
         <div className='book-shelf-changer'>
@@ -28,9 +30,24 @@ const Book = ({ bookData, handleChange }) => {
         </div>
       </div>
       <div className='book-title'>{bookData.title}</div>
-      <div className='book-authors'>{bookData.authors}</div>
+      {bookData.authors ? (
+        bookData.authors.map((author, index) => {
+          return (
+            <div key={index} className='book-authors'>
+              {author}
+            </div>
+          );
+        })
+      ) : (
+        <div></div>
+      )}
     </div>
   );
+};
+
+Book.propTypes = {
+  bookData: PropTypes.object,
+  handleChange: PropTypes.func
 };
 
 export default Book;
