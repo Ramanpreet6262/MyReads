@@ -1,6 +1,6 @@
 # MyReads
 
-This is the first project of React Developer Nanodegree Programme. This project is basically a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. Also it has a search feature to search various books and select and include them in your bookshelf. 
+This is the first project of React Developer Nanodegree Programme. This project is basically a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. Also it has a feature to search various books and select and include them in your bookshelf. 
 
 ## How to run this project locally
 
