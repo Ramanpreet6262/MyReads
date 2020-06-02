@@ -73,9 +73,7 @@ const App = () => {
             }
             return book;
           });
-          if (searchQuery !== '') {
-            setSearchedBooks(updatedResp);
-          }
+          setSearchedBooks(updatedResp);
         })
         .catch(err => {
           console.log(
